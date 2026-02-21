@@ -1,0 +1,36 @@
+{
+  "name": "@dukebot/aws-deploy",
+  "version": "0.1.0",
+  "description": "Deploy a web build to S3 with optional CloudFront invalidation",
+  "type": "module",
+  "main": "./src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "check": "node --check src/index.mjs && node --check src/sync.mjs && node --check src/aws/s3.mjs && node --check src/aws/cloudfront.mjs"
+  },
+  "keywords": [
+    "aws",
+    "s3",
+    "cloudfront",
+    "deploy"
+  ],
+  "author": "Dukebot",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudfront": "^3.888.0",
+    "@aws-sdk/client-s3": "^3.888.0"
+  }
+}
