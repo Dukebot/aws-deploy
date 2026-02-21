@@ -32,5 +32,8 @@
   "dependencies": {
     "@aws-sdk/client-cloudfront": "^3.888.0",
     "@aws-sdk/client-s3": "^3.888.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1"
   }
 }
