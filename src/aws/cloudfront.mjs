@@ -8,9 +8,9 @@ export class CloudFront {
    * @param {object} [options]
    * @param {{accessKeyId:string,secretAccessKey:string}} [options.credentials]
    */
-  constructor({ credentials } = {}) {
+  constructor({ region = 'us-east-1', credentials } = {}) {
     // CloudFront is global; us-east-1 is the standard endpoint region.
-    this.cloudFront = new CloudFrontClient({ region: 'us-east-1', credentials });
+    this.cloudFront = new CloudFrontClient({ region, credentials });
   }
 
   /**

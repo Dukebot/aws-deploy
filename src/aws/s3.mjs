@@ -12,9 +12,10 @@ export class S3 {
   /**
    * @param {object} [options]
    * @param {{accessKeyId:string,secretAccessKey:string}} [options.credentials]
+   * @param {string} [options.region]
    */
-  constructor({ credentials } = {}) {
-    this.s3 = new S3Client({ credentials });
+  constructor({ region = 'us-east-1', credentials } = {}) {
+    this.s3 = new S3Client({ region, credentials });
   }
 
   /** Upload a single object to S3. */

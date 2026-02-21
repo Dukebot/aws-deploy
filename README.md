@@ -18,6 +18,7 @@ import { AwsWebDeployer } from '@dukebot/aws-deploy';
 const deployer = new AwsWebDeployer({
   directory: 'dist',
   s3Bucket: 's3://mi-bucket/mi-app/',
+  s3Region: 'eu-west-1', // optional (if omitted, S3 class default is used)
   cloudFrontDistributionId: 'E1234567890ABC', // optional
   awsAccessKeyId: 'AKIA...', // optional
   awsSecretAccessKey: '...', // optional
@@ -51,12 +52,14 @@ Supported variables:
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 - `AWS_SESSION_TOKEN` (optional, for temporary credentials)
+- `AWS_S3_REGION` (optional, for S3 client region)
 
 You can also provide credentials directly via constructor parameters:
 
 - `awsAccessKeyId`
 - `awsSecretAccessKey`
 - `awsSessionToken` (optional)
+- `s3Region` (optional)
 
 > AWS credentials: this module relies on the standard AWS SDK credential chain
 > (environment variables, local profile, IAM role, etc.).

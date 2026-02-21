@@ -72,8 +72,15 @@ function contentTypeFor(key) {
 /**
  * Syncs a local directory to S3 and removes remote stale objects.
  */
-export async function syncDirectoryToS3({ directory, htmlCache, assetsCache, s3Bucket, credentials }) {
-  const s3 = new S3({ credentials });
+export async function syncDirectoryToS3({
+  directory,
+  htmlCache,
+  assetsCache,
+  awsCredentials,
+  s3Bucket,
+  s3Region,
+}) {
+  const s3 = new S3({ credentials: awsCredentials, region: s3Region });
   const { bucket, basePrefix } = parseS3Target(s3Bucket);
 
   const localFiles = walkFiles(directory);

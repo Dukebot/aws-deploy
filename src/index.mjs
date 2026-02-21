@@ -28,22 +28,19 @@ export class AwsWebDeployer {
    * @param {string} [config.awsAccessKeyId] Optional AWS access key id
    * @param {string} [config.awsSecretAccessKey] Optional AWS secret access key
    * @param {string} [config.awsSessionToken] Optional AWS session token (STS)
+   * @param {string} [config.s3Region] Optional S3 region (e.g. eu-west-1)
    */
   constructor(config = {}) {
-    const awsCredentials =
-      config.awsAccessKeyId && config.awsSecretAccessKey
-        ? {
-            accessKeyId: config.awsAccessKeyId,
-            secretAccessKey: config.awsSecretAccessKey,
-            sessionToken: config.awsSessionToken,
-          }
-        : undefined;
-
     this.config = {
       directory: path.resolve(process.cwd(), config.directory ?? config.distDir ?? 'dist'),
       htmlCache: config.htmlCache ?? 'max-age=60,public',
       assetsCache: config.assetsCache ?? 'max-age=31536000,public,immutable',
-      awsCredentials,
+      s3Region: config.s3Region,
+      awsCredentials: {
+        accessKeyId: config.awsAccessKeyId,
+        secretAccessKey: config.awsSecretAccessKey,
+        sessionToken: config.awsSessionToken,
+      },
       s3Bucket: requireValue(config.s3Bucket, 's3Bucket'),
       cloudFrontDistributionId: config.cloudFrontDistributionId,
     };
@@ -62,6 +59,7 @@ export class AwsWebDeployer {
       awsAccessKeyId: env.AWS_ACCESS_KEY_ID,
       awsSecretAccessKey: env.AWS_SECRET_ACCESS_KEY,
       awsSessionToken: env.AWS_SESSION_TOKEN,
+      s3Region: env.AWS_S3_REGION,
       s3Bucket: env.AWS_S3_BUCKET,
       cloudFrontDistributionId: env.AWS_CLOUD_FRONT_DISTRIBUTION_ID,
     });
@@ -79,8 +77,9 @@ export class AwsWebDeployer {
       directory: config.directory,
       htmlCache: config.htmlCache,
       assetsCache: config.assetsCache,
+      awsCredentials: config.awsCredentials,
       s3Bucket: config.s3Bucket,
-      credentials: config.awsCredentials,
+      s3Region: config.s3Region,
     });
 
     // 2) Optionally invalidate CloudFront cache after upload.
