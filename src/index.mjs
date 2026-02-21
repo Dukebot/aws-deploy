@@ -35,12 +35,12 @@ export class AwsWebDeployer {
       directory: path.resolve(process.cwd(), config.directory ?? config.distDir ?? 'dist'),
       htmlCache: config.htmlCache ?? 'max-age=60,public',
       assetsCache: config.assetsCache ?? 'max-age=31536000,public,immutable',
-      s3Region: config.s3Region,
       awsCredentials: {
         accessKeyId: config.awsAccessKeyId,
         secretAccessKey: config.awsSecretAccessKey,
         sessionToken: config.awsSessionToken,
       },
+      s3Region: config.s3Region || undefined,
       s3Bucket: requireValue(config.s3Bucket, 's3Bucket'),
       cloudFrontDistributionId: config.cloudFrontDistributionId,
     };

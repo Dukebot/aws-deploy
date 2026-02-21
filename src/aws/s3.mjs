@@ -15,6 +15,7 @@ export class S3 {
    * @param {string} [options.region]
    */
   constructor({ region = 'us-east-1', credentials } = {}) {
+    if (!region) throw Error('S3: region is missing!')
     this.s3 = new S3Client({ region, credentials });
   }
 

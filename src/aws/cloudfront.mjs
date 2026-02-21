@@ -9,6 +9,7 @@ export class CloudFront {
    * @param {{accessKeyId:string,secretAccessKey:string}} [options.credentials]
    */
   constructor({ region = 'us-east-1', credentials } = {}) {
+    if (!region) throw Error('CloudFront: region is missing!')
     // CloudFront is global; us-east-1 is the standard endpoint region.
     this.cloudFront = new CloudFrontClient({ region, credentials });
   }
