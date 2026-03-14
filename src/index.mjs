@@ -69,9 +69,9 @@ export class AwsWebDeployer {
    * Runs the deployment flow (S3 sync + optional CloudFront invalidation).
    */
   async deploy() {
-    const { config } = this;
-    console.log('Deploy config', config);
-
+    const config = this.config
+    this.printConfig()
+    
     // 1) Upload/sync local directory to S3.
     await syncDirectoryToS3({
       directory: config.directory,
@@ -92,6 +92,16 @@ export class AwsWebDeployer {
     }
 
     return config;
+  }
+
+  printConfig() {
+    const config = JSON.parse(JSON.stringify(this.config))
+
+    // Don't print sensitive data
+    delete config.awsCredentials.secretAccessKey
+    delete config.awsCredentials.sessionToken
+
+    console.log('config', config)
   }
 }
 
